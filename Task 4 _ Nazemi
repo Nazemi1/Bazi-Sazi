@@ -1,0 +1,22 @@
+using System.Collections;
+using System.Collections.Generic; using UnityEngine;
+public class ghermezi : MonoBehaviour
+{
+public int height=2;
+public int width=2;
+public float rotationspee d=50f;
+public Color CubeColor=Color.red;
+public Vector3 initialPosition=new Vector3(0,1,0);
+// Start is called before the first frame update
+void Start()
+{
+transform.localScale=new Vector3(width, height,width);
+GetComponent<Renderer>().material.color=CubeColor;
+transform.position=initialPosition;
+}
+// Update is called once per frame
+void Update()
+{
+transform.Rotate(Vector3.up,rotationspeed*Time.deltaTime);
+}
+}
