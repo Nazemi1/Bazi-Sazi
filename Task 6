@@ -1,0 +1,66 @@
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class FindLostItemsGame : MonoBehaviour
+{
+    private List<string> lostItems = new List<string> { "کلید", "کتاب", "تلفن", "کیف پول" };
+    private int remainingAttempts = 5;
+    private int itemsFound = 0;
+
+    public InputField userInputField; // برای دریافت ورودی از کاربر
+    public Text resultText; // برای نمایش بازخورد به کاربر
+    public Text attemptsRemainingText; // برای نمایش تعداد تلاش‌های باقی‌مانده
+
+    void Start()
+    {
+        attemptsRemainingText.text = "تلاش‌های باقی‌مانده: " + remainingAttempts;
+        resultText.text = "";
+    }
+
+    public void BeginGame()
+    {
+        while (remainingAttempts > 0 && lostItems.Count > 0)
+        {
+            ValidateInput();
+        }
+
+        if (lostItems.Count == 0)
+        {
+            resultText.text = "تبریک! شما همه اشیای گمشده را پیدا کردید!";
+        }
+        else if (remainingAttempts <= 0)
+        {
+            resultText.text = "متاسفم! تلاش‌های شما تمام شده است.";
+        }
+    }
+
+    public void ValidateInput()
+    {
+        string input = userInputField.text;
+        userInputField.text = ""; // پاک کردن ورودی پس از بررسی
+
+        bool found = false;
+        
+        // بررسی اینکه آیا شیء گمشده پیدا شده یا خیر
+        foreach (string item in lostItems)
+        {
+            if (input == item)
+            {
+                found = true;
+                itemsFound++;
+                lostItems.Remove(item);
+                resultText.text = "شیء پیدا شد: " + item;
+                break;
+            }
+        }
+
+        if (!found)
+        {
+            remainingAttempts--;
+            resultText.text = "شیء پیدا نشد!";
+        }
+
+        attemptsRemainingText.text = "تلاش‌های باقی‌مانده: " + remainingAttempts;
+    }
+}
