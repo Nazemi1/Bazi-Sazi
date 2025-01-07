@@ -1,0 +1,22 @@
+using System.Collections.Generic;
+using UnityEngine;
+
+public class TaskManager : MonoBehaviour
+{
+    private Queue<string> taskQueue = new Queue<string>();
+
+    void Start()
+    {
+        taskQueue.Enqueue("Collect coins");
+        taskQueue.Enqueue("Unlock the door");
+        taskQueue.Enqueue("Reach the finish line");
+
+        while (taskQueue.Count > 0)
+        {
+            string currentTask = taskQueue.Dequeue();
+            Debug.Log("Processing: " + currentTask);
+        }
+
+        Debug.Log("All tasks are completed");
+    }
+}
