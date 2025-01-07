@@ -1,0 +1,29 @@
+public class PlayerScores : MonoBehaviour
+{
+    void Start()
+    {
+        Dictionary<string, int> scores = new Dictionary<string, int>();
+        scores.Add("Ali", 100);
+        scores.Add("Sara", 150);
+        scores.Add("Amir", 200);
+
+        foreach (var player in scores)
+        {
+            Debug.Log(player.Key + " scored " + player.Value);
+        }
+
+        string topPlayer = "";
+        int topScore = 0;
+
+        foreach (var player in scores)
+        {
+            if (player.Value > topScore)
+            {
+                topScore = player.Value;
+                topPlayer = player.Key;
+            }
+        }
+
+        Debug.Log("Player with the most points: " + topPlayer + " with points: " + topScore);
+    }
+}
