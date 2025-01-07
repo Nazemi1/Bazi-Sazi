@@ -1,0 +1,49 @@
+using UnityEngine;
+
+public class GridManager : MonoBehaviour
+{
+    public GameObject tilePrefab;
+    public int rows = 5;
+    public int columns = 2;
+    private GameObject[,] grid;
+    void Start()
+    {
+        grid = new GameObject[rows, columns];
+        for (int i = 0; i < rows; i++)
+        {
+            for (int j = 0; j < columns; j++)
+            {
+                GameObject tile = Instantiate(tilePrefab, new Vector3(i, 0, j), Quaternion.identity);
+                tile.name = "Tile (" + i + "," + j + ")";
+                grid[i, j] = tile;
+            }
+        }
+    }
+
+    void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+if (Physics.Raycast(ray, out RaycastHit hit))
+            {
+                GameObject clickedTile = hit.collider.gameObject;
+                clickedTile.GetComponent<Renderer>().material.color = Color.red;
+                Debug.Log("Clicked on: " + clickedTile.name);
+            }
+        }
+    }
+
+    public void ToggleTile(int row, int column, bool isActive)
+    {
+        if (row >= 0 && row < rows && column >= 0 && column < columns)
+        {
+            grid[row, column].SetActive(isActive);
+        }
+        else
+        {
+            Debug.LogWarning("Invalid tile coordinates!");
+        }
+    }
+}
