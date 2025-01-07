@@ -1,0 +1,31 @@
+public class StoreInventory : MonoBehaviour
+{
+    void Start()
+    {
+        Dictionary<string, int> inventory = new Dictionary<string, int>();
+        inventory.Add("Mouse", 25);
+        inventory.Add("Keyboard", 10);
+        inventory.Add("Monitor", 15);
+
+        foreach (var product in inventory)
+        {
+            Debug.Log(product.Key + " : " + product.Value + " units");
+        }
+
+        string productToUpdate = "Mouse";
+        if (inventory.ContainsKey(productToUpdate))
+        {
+            inventory[productToUpdate] -= 5;
+            Debug.Log("Updated inventory: " + productToUpdate + " = " + inventory[productToUpdate]);
+        }
+
+        int minStock = 5;
+        foreach (var product in inventory)
+        {
+            if (product.Value < minStock)
+            {
+                Debug.Log("Low stock alert: " + product.Key);
+            }
+        }
+    }
+}
